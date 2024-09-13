@@ -262,7 +262,7 @@ of habitable areas, we opted for the simplest model that only allows migration
 between neighboring grid cells and assigns a unit cost to each migration event.
 With these assumptions, we used \textsc{gaia} to locate ancestral nodes to the
 grid cells with the lowest migration cost. For many ancestral nodes, especially 
-older nodes, multiple grid cells may be optimal or near-optimal (Fig.~
+older nodes, multiple grid cells may be optimal or near-optimal (figure~
 \ref{fig:uncertainty}). Because our summaries ignore near-optimal solutions, 
 they do not explore the full range of uncertainty in ancestral locations and 
 should be viewed not as precise statements on where ancestors lived and how 
@@ -468,20 +468,6 @@ denote higher costs).}
 
 \end{figure}
 
-\begin{figure}
-\centering
-{\includegraphics[width=\textwidth]{figs/uncertainty.pdf}}
-
-\caption{\textbf{An example set of geographically referenced genetic ancestors of a
-contemporary sample from Asia}. Colored grid cells denote the migration costs
-calculated by \textsc{gaia} (warmer colors denote lower costs) and each ancestor 
-(denoted by a white point) is positioned within the minimum cost grid cell. For 
-most ancestors there are many near-optimal locations that are ignored by our
-summary methods, which should therefore be viewed as summarizing major trends
-rather than as precise statements on where ancestors lived and how they moved.}
-\label{fig:uncertainty}
-
-\end{figure}
 
 \begin{figure}
 \centering
@@ -622,7 +608,7 @@ files used to perform analyses in this paper are available on GitHub at
 \subsection*{Supplementary materials}
 Materials and Methods\\
 Supplementary Text\\
-Figs. S1 to S13\\
+Figs. S1 to S14\\
 References \textit{(37-\arabic{enumiv})} % automatically fills out the last reference number
 % (filling out the other numbers automatically is possible but fiddly and liable to break)
 
@@ -664,7 +650,7 @@ Gideon~S.~Bradburd$^{\ast}$\\ % we're not in a \author{} environment this time, 
 \subsubsection*{This PDF file includes:}
 Materials and Methods\\
 Supplementary Text\\
-Figures S1 to S13
+Figures S1 to S14
 
 \newpage
 
@@ -1208,6 +1194,7 @@ sample of local gene trees.
 
 %%%%%%%%%%%%%%%% SUPPLEMENTARY FIGURES %%%%%%%%%%%%%%%
 
+
 \begin{figure}
 \centering
 \includegraphics[width=\textwidth]{figs/gauss-rate-estimates}
@@ -1280,6 +1267,21 @@ uniform landscape; 101-120, to Gaussian dispersal on a heterogeneous landscape;
 on a 2023 Macbook Pro with 18Gb of RAM and an Apple M3 Pro chip.
 }
 \label{fig:gaia-wohns-compare}
+\end{figure}
+
+\begin{figure}
+\centering
+{\includegraphics[width=\textwidth]{figs/uncertainty.pdf}}
+
+\caption{An example set of geographically referenced genetic ancestors of a
+contemporary sample from Asia. Colored grid cells denote the migration costs
+calculated by \textsc{gaia} (warmer colors denote lower costs) and each ancestor 
+(denoted by a white point) is positioned within the minimum cost grid cell. For 
+most ancestors there are many near-optimal locations that are ignored by our
+summary methods, which should therefore be viewed as summarizing major trends
+rather than as precise statements on where ancestors lived and how they moved.}
+\label{fig:uncertainty}
+
 \end{figure}
 
 \begin{figure}
