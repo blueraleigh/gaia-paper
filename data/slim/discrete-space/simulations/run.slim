@@ -1,8 +1,6 @@
 initialize() {
     initializeSLiMModelType("nonWF");
     initializeTreeSeq();
-    //defineConstant("ADJMATFILE", "/Users/mgrundler/Library/CloudStorage/Dropbox/research/postdoc/bradburd/manuscripts/gaia/v2-science-revision/slim/globe/landgrid-adjmat-ooa-south.csv");
-    //defineConstant("TREEFILE", "/Users/mgrundler/Library/CloudStorage/Dropbox/research/postdoc/bradburd/manuscripts/gaia/v2-science-revision/slim/globe/globe.trees");
     defineConstant("ADJMATFILE", paste(WD)+ "/landgrid-adjmat-ooa-" + paste(MAP) + ".csv");
     defineConstant("TREEFILE", paste(WD)+"/trees/tree-ooa-"+paste(MAP)+"-"+paste(REP)+".trees");
     defineConstant("K", 100); // carrying capacity per subpop
