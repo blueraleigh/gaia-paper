@@ -1,0 +1,65 @@
+initialize() {
+    defineConstant("W", 1000*S);
+    defineConstant("Nbr", 30);
+    defineConstant("K", Nbr / (PI*(S*3)*(S*3)));
+    defineConstant("R", 2);
+    defineConstant("M", K / (R - 1));
+
+    defineConstant("PREFIX", "tree-S"+paste(S)+"-R"+paste(REP));
+    defineConstant("TREEFILE", WD+"/trees/"+PREFIX+".trees");
+    
+    initializeSLiMModelType("nonWF");
+    initializeSLiMOptions(dimensionality="xy");
+    initializeTreeSeq();
+    initializeMutationType("m1", 0.5, "f", 0.0);
+    initializeGenomicElementType("g1", m1, 1.0);
+    initializeGenomicElement(g1, 0, 1e8 - 1);
+    initializeMutationRate(0.0);
+    initializeRecombinationRate(1e-8);
+    
+    initializeInteractionType(1, "xy", reciprocal=T, maxDistance=S * 3);
+}
+1 early() {
+    sim.addSubpop("p1", Nbr);
+    p1.setSpatialBounds(c(0,0,W,W));
+    pos = p1.pointUniform();
+    for (ind in p1.individuals) {
+        s = 1.1;
+        while (s >= 1) {
+            x = 2*runif(1)-1;
+            y = 2*runif(1)-1;
+            s = x*x + y*y;
+        }
+        ind.setSpatialPosition(
+            p1.pointReflected(c(pos[0] + x*3*S, pos[1] + y*3*S)));
+    }
+}
+2: first() {
+    i1.evaluate(p1);
+}
+reproduction() {
+    n_t = i1.localPopulationDensity(individual);
+    mean_litter_size = R / (1 + n_t / M);
+    mate = i1.drawByStrength(individual, 1);
+    if (mate.size()) {
+        litterSize = rpois(1, mean_litter_size);
+        for (i in seqLen(litterSize)) {
+            child = subpop.addCrossed(individual, mate);
+            pos = individual.spatialPosition + rnorm(2, 0, S);
+            child.setSpatialPosition(p1.pointReflected(pos));
+        }
+    }
+}
+:10000 early() {
+    i1.evaluate(p1);
+    inds = p1.individuals;
+    inds.fitnessScaling = min(1.0, K / i1.localPopulationDensity(inds));
+    inds[inds.age > 0].fitnessScaling = 0;
+}
+1: late() {
+    sim.treeSeqRememberIndividuals(p1.individuals, permanent=F);
+}
+10000 late() {
+    sim.treeSeqOutput(TREEFILE);
+    sim.simulationFinished();
+}

@@ -1,0 +1,42 @@
+# Ignore everything
+*
+
+# Whitelist anything that's a directory
+!*/
+
+# Track all the files type we're interested in:
+
+# This file
+!.gitignore
+
+# README files
+!README
+!*.md
+
+# Makefiles
+!Makefile
+!*.make
+
+# R files
+!*.R
+
+# SLiM files
+!*.slim
+
+# Shell files
+!*.sh
+
+# tex associated files
+!*.tex
+!*.sty
+!*.bib
+!*.bst
+!*.cls
+!ms/figs/*.pdf
+!ms/figs/*.png
+!ms/figs/*.jpg
+
+# some data files
+!data/empirical/data/*.gpkg
+!data/empirical/data/*.csv
+!data/slim/discrete-space/simulations/*.csv

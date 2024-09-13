@@ -1,0 +1,86 @@
+initialize() {
+    initializeSLiMModelType("nonWF");
+    initializeSLiMOptions(dimensionality="xy");
+    initializeTreeSeq();
+    defineConstant("TPREFIX", "tree-"+paste(REP));
+    defineConstant("LPREFIX", "landscape-"+paste(REP));
+    defineConstant("TREEFILE", WD+"/trees/"+TPREFIX+".trees");
+    defineConstant("LANDSCAPEFILE", WD+"/landscapes/"+LPREFIX+".csv");
+    // width of the simulated area 
+    defineConstant("W", 25.0);
+    // interaction width
+    defineConstant("S", 0.025);
+    // genome length
+    defineConstant("G", 1e8);
+    // mean fecundity
+    defineConstant("R", 2);
+    initializeMutationType("m1", 0.5, "g", 0.0, 2);
+    initializeGenomicElementType("g1", m1, 1.0);
+    initializeGenomicElement(g1, 0, G-1);
+    initializeMutationRate(0.0);
+    initializeRecombinationRate(1e-8);
+    initializeInteractionType(1, "xy", reciprocal=T, maxDistance=S * 3);
+}
+1 early() {
+    sim.addSubpop("p1", 9000);
+    p1.setSpatialBounds(c(0, 0, W, W));
+    i = 0;
+    for (ind in p1.individuals) {
+        if (asInteger(i % 30) == 0) {
+            pos = p1.pointUniform();
+        }
+        s = 1.1;
+        while (s >= 1) {
+            x = 2*runif(1)-1;
+            y = 2*runif(1)-1;
+            s = x*x + y*y;
+        }
+        ind.setSpatialPosition(
+            p1.pointReflected(c(pos[0] + x*3*S, pos[1] + y*3*S)));
+        i = i + 1;
+    }
+    K_local = readCSV(LANDSCAPEFILE, colNames=F).asMatrix();
+    p1.defineSpatialMap(
+        "density"
+        , spatiality="xy"
+        , values=K_local
+        , interpolate=F
+        , valueRange=c(0,max(K_local))
+        , colors=c(
+              "#5E4FA2", "#3288BD", "#66C2A5", "#ABDDA4"
+            , "#E6F598", "#FFFFBF", "#FEE08B", "#9E0142"
+            , "#FDAE61", "#F46D43", "#D53E4F")
+    );
+}
+2: first() {
+    i1.evaluate(p1);
+}
+reproduction() {
+    n_t = i1.totalOfNeighborStrengths(individual);
+    M = p1.spatialMapValue("density", individual.spatialPosition);
+    mean_litter_size = R / (1 + n_t / M);
+    mate = i1.drawByStrength(individual, 1);
+    if (mate.size()) {
+        litterSize = rpois(1, mean_litter_size);
+        for (i in seqLen(litterSize)) {
+            child = subpop.addCrossed(individual, mate);
+            pos = individual.spatialPosition + rnorm(2, 0, S);
+            child.setSpatialPosition(p1.pointReflected(pos));
+        }
+    }
+}
+:10000 early() {
+    i1.evaluate(p1);
+    inds = p1.individuals;
+    competition = i1.totalOfNeighborStrengths(inds);
+    K_local = p1.spatialMapValue("density", inds.spatialPosition);
+    inds.fitnessScaling = min(1.0, K_local / competition);
+    inds[inds.age > 0].fitnessScaling = 0.0;
+}
+1: late() {
+   sim.treeSeqRememberIndividuals(p1.individuals, permanent=F);
+}
+10000 late() {
+    sim.treeSeqOutput(TREEFILE);
+    sim.simulationFinished();
+}
