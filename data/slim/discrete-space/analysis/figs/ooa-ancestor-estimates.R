@@ -1,9 +1,9 @@
 library(sf)
 
-data = read.csv("../../../../hgdp/data/trees/sample-states.csv")
+data = read.csv("../../../../empirical/data/trees/sample-states.csv")
 pops_to_sample = sort(unique(data[,2]))
 
-landgrid = st_read("../../../../hgdp/data/landgrid.gpkg")
+landgrid = st_read("../../../../empirical/data/landgrid.gpkg")
 
 y = c()
 for (i in 1:25) {

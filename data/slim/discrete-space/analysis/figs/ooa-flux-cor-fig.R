@@ -1,4 +1,4 @@
-cost.mat = data.matrix(read.csv("../../../../hgdp/data/landgrid-distmat.csv", row.names=1))
+cost.mat = data.matrix(read.csv("../../../../empirical/data/landgrid-distmat.csv", row.names=1))
 
 y = c()
 for (i in 1:25) {
