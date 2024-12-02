@@ -1,3 +1,19 @@
+foo = function(x) {
+    node_age = x[, 1]
+    node_err = x[, 2]
+    ages = c(seq(0,10,1),seq(20,100,10),seq(200,1000,100),seq(2000,10000,1000))
+    q025 = tapply(
+        node_err, 
+        findInterval(node_age, ages, rightmost.closed=TRUE, left.open=TRUE),
+        quantile, prob=0.025
+    )
+    q975 = tapply(
+        node_err, 
+        findInterval(node_age, ages, rightmost.closed=TRUE, left.open=TRUE),
+        quantile, prob=0.975
+    )
+    cbind(ages[-1], q025, q975)
+}
 
 x = read.csv("../ancestor-estimates-linear.csv", header=FALSE)
 y = read.csv("../ancestor-estimates-linear-pareto.csv", header=FALSE)
@@ -14,6 +30,8 @@ axis(2, las=1)
 mtext("Ancestor location error", 2, line=2.5, cex=0.8)
 mtext("Ancestor age (generations)", 1, line=2.5, cex=0.8)
 myhsp(x[,3], x[,4], colpal="heat", log='x',pch=19)
+p = foo(x[, 3:4])
+polygon(c(p[,1], rev(p[,1])), c(p[,3],rev(p[,2])), lwd=1)
 legend("topleft", legend="Gaussian kernel", bty="n")
 plot(y[,3], y[,4], log='x', las=1, bty="l",
     xlab="Ancestor age",
@@ -23,6 +41,8 @@ axis(1, at=c(1,10,100,1000,10000,''))
 axis(2, las=1, at=seq(0,0.8,0.2), labels=rep('', 5))
 mtext("Ancestor age (generations)", 1, line=2.5, cex=0.8)
 myhsp(y[,3], y[,4], colpal="heat", log='x',pch=19)
+p = foo(y[, 3:4])
+polygon(c(p[,1], rev(p[,1])), c(p[,3],rev(p[,2])), lwd=1)
 legend("topleft", legend="Pareto kernel", bty="n")
 dev.off()
 

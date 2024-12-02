@@ -1,4 +1,19 @@
-
+foo = function(x) {
+    node_age = x[, 1]
+    node_err = x[, 2]
+    ages = c(seq(0,10,1),seq(20,100,10),seq(200,1000,100),seq(2000,10000,1000))
+    q025 = tapply(
+        node_err, 
+        findInterval(node_age, ages, rightmost.closed=TRUE, left.open=TRUE),
+        quantile, prob=0.025
+    )
+    q975 = tapply(
+        node_err, 
+        findInterval(node_age, ages, rightmost.closed=TRUE, left.open=TRUE),
+        quantile, prob=0.975
+    )
+    cbind(ages[-1], q025, q975)
+}
 
 x = read.csv("../ancestor-estimates.csv", header=FALSE)
 
@@ -23,9 +38,11 @@ for (i in 1:10) {
     if (i %in% 1:5)
         mtext("Ancestor location error", 2, line=2.5, cex=0.8)
     if (i == 5 || i == 10)
-        mtext("Ancestor age", 1, line=2.5, cex=0.8)
+        mtext("Ancestor age (generations)", 1, line=2.5, cex=0.8)
     myhsp(x[idx,4], x[idx,5], colpal="heat", log='x',pch=19)
     legend("topleft", legend=bquote(paste(sigma, " = ", .(SIGMA[i]))), bty="n")
+    p = foo(x[idx, 4:5])
+    polygon(c(p[,1], rev(p[,1])), c(p[,3],rev(p[,2])), lwd=0.5)
 }
 dev.off()
 
