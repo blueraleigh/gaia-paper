@@ -229,6 +229,19 @@ average ancestral base pair. In our implementation, migration cost is a
 function of geographic distance, and the overall migration cost in a local
 genealogy is simply the sum of all ancestor-descendant migration costs.
 
+A minimum migration optimality criterion such as used by \textsc{gaia} will
+occasionally miss migration events because there will arise situations where
+ancestors in distinct geographic locations are assigned to a single geographic
+location because it will lower the overall migration cost given the sampling
+configuration. This has the potential to create a simplified picture of
+ancestry when the reality is more complex \cite{Scerri2019}. Additionally,
+variance in the coalescent process itself can interact with the sampling
+configuration such that ancestors in the same location are inferred
+to be in different locations, potentially resulting in mistaken inferences of
+the spatial and temporal pattern of migration. As \textsc{gaia} is principally
+an exploratory tool, we do not attempt exhaustive exploration of these biases,
+but users of \textsc{gaia} should bear them in mind when interpreting results.
+
 To validate the performance of \textsc{gaia} for inferring the geographic
 locations of nodes in a tree sequence, we simulated genetic data under
 different spatial models using SLiM~\cite{Haller_Messer_2023}. \textsc{gaia} 
