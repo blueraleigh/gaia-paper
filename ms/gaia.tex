@@ -1322,10 +1322,23 @@ red, with darker shading indicating greater ancestry (=a larger fraction).
 Point size is proportional to the number of sampled genomes from each 
 locality in the full dataset. Subsets of the data were taken by randomly 
 downsampling localities so that each was represented by a single individual.
+Variation about these averages is shown in Fig \ref{fig:ancestry-subset-sdev}.
 }
 \label{fig:ancestry-subset-avg}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figs/ancestry-thru-time-sdev}
+\caption{Variance in spatiotemporal ancestry coefficients over 100 random
+subsets of the data. Columns record the average spatial temporal ancestry
+coefficients at 4 different time slices for samples in the 4 geographic
+regions. Each point corresponds to a hexcell and is colored by the
+major geographic region in which it is situated. The mean spatiotemporal
+ancestry coefficient for each cell is bracketed by one standard deviation.
+}
+\label{fig:ancestry-subset-sdev}
+\end{figure}
 
 \begin{figure}
 \centering
@@ -1355,6 +1368,19 @@ away from the true location toward the centroid location of modern-day samples
 from Africa. 
 }
 \label{fig:ooa-ancestor-estimate-bias}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{figs/ooa-pairwise-distances}
+\caption{Relationship between true and estimated pairwise distances between
+genetic ancestors of different age classes averaged over out-of-Africa 
+simulation replicates. There is a slight tendency for \textsc{gaia} to place
+ancestors closer together than they actually are, but the overall pairwise
+distribution of ancestor-to-ancestor distances is recovered with high
+accuracy in these simulations.
+}
+\label{fig:ooa-pairwise-distances}
 \end{figure}
 
 \begin{figure}
