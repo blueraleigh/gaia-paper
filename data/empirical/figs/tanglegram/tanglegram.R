@@ -36,10 +36,9 @@ l = matrix(c(
     5,6,7), 5, 3, byrow=TRUE)
 
 
-#jpeg("tanglegram.jpg", width=7.25,height=7.25,units="in",res=600)
-tiff("tanglegram.tif", width=7.25,height=7.25,units="in",res=600)
+jpeg("tanglegram.jpg", width=7.25,height=7.25,units="in",res=600)
 layout(l)
-par(mar=c(0,0,0,0))
+par(mar=c(0,0,0,0), ps=9)
 plot.new()
 plot.window(
     xlim=range(st_coordinates(land)[,1]),
@@ -119,7 +118,7 @@ text(
         st_coordinates(st_centroid(g[300-3*18-10]))[1],
         st_coordinates(st_centroid(g[300+8]))[1],,5),
     st_coordinates(st_centroid(g[300-3*18-10]))[2]-3e5,
-    c("0","500","1000","1500","2000"), cex=0.6,
+    c("0","500","1000","1500","2000"), cex=1,
     offset=0.25, pos=1
 )
 
@@ -128,7 +127,7 @@ text(
         st_coordinates(st_centroid(g[300-3*18-10]))[1],
         st_coordinates(st_centroid(g[300+8]))[1],,5)[3],
     st_coordinates(st_centroid(g[300-3*18-10]))[2]-9e5,
-    "Age of ancestral migration (kya)", cex=0.58
+    "Age of ancestral migration (kya)", cex=1
 )
 
 
@@ -150,16 +149,16 @@ points(
 text(st_coordinates(st_centroid(g[300-4*18+9]))[1],
     st_coordinates(st_centroid(g[300-4*18+9]))[2]+3e5,
     "Path of average ancestor",
-    cex=0.6, adj=0)
+    cex=1, adj=0)
 text(st_coordinates(st_centroid(g[300-4*18+9]))[1],
-    st_coordinates(st_centroid(g[300-4*18+9]))[2], "0", pos=1, cex=0.6, adj=0)
+    st_coordinates(st_centroid(g[300-4*18+9]))[2], "0", pos=1, cex=1, adj=0)
 text(
     seq(
         st_coordinates(st_centroid(g[300-4*18+9]))[1] + 3.5e6,
         st_coordinates(st_centroid(g[300-4*18+9]))[1] + 1e6, , 3),
     rep(st_coordinates(st_centroid(g[300-4*18+9]))[2], 3),
     c("2000 kya", "200", "10"),
-    cex=0.6, adj=0, pos=1)
+    cex=1, adj=0, pos=1)
 
 # here we make the subplots
 times = brks$brks
