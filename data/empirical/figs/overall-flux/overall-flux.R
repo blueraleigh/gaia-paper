@@ -14,7 +14,9 @@ M = attr(flux, "max.age")
 colfn = scales::col_numeric(LSD::colorpalette("reds", rev=TRUE), 
     range(M[M > 0]))
 
-par(mar=c(0,0,0,0))
+pdf(file="overall-flux.pdf", width=7, height=7, colormodel='cmyk')
+
+par(mar=c(0,0,0,0), ps=9)
 plot(landgrid$geom, border="light grey", lwd=0.5)
 plot(land$geom, add=TRUE, lwd=0.5)
 
@@ -73,11 +75,11 @@ arrow(
 text(
     st_coordinates(st_centroid(g[300-4*18+9]))[1],
     st_coordinates(st_centroid(g[300-4*18+9]))[2],
-    "Direction of\ngreatest migration", cex=0.58, pos=2)
+    "Direction of\ngreatest migration", cex=1, pos=2)
 text(
     st_coordinates(st_centroid(g[300]))[1]+9e5,
     st_coordinates(st_centroid(g[300]))[2],
-    "Age of earliest migration\nancestral to sample (kya)", cex=0.58,
+    "Age of earliest migration\nancestral to sample (kya)", cex=.8,
     adj=1
 )
 rect(
@@ -114,7 +116,7 @@ text(
         st_coordinates(st_centroid(g[300-3*18-10]))[1],
         st_coordinates(st_centroid(g[300+8]))[1],,5),
     st_coordinates(st_centroid(g[300-3*18-10]))[2]-3e5,
-    c("0","125","250","375","500"), cex=0.6,
+    c("0","125","250","375","500"), cex=1,
     offset=0.25, pos=1
 )
 
@@ -139,7 +141,7 @@ points(px, py, cex=pt.cex, lwd=0.5)
 text(
     px[1]+pt.xrad[1],
     py[1],
-    "Sample size", pos=4, cex=0.6)
+    "Sample size", pos=4, cex=1)
 
 segments(
     px[1]+pt.xrad[1],
@@ -155,9 +157,9 @@ segments(
 )
 text(
     px[1]+pt.xrad[1]-0.25*sqrt(c(0,55,205,355))*scal1*2,
-    py[1]-pt.yrad[1],
+    py[1]-pt.yrad[1]*c(1.08,1.25,1.4,1.4),
     c(0,50,200,350),
-    pos=1, cex=0.35, srt=40
+    pos=1, cex=.8, srt=90
 )
 
-dev.print(pdf, file="overall-flux.pdf")
+dev.off()
