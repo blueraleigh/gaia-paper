@@ -23,10 +23,11 @@ site_coords = st_coordinates(sites)
 
 times = seq(0, 20000, 100)
 
+pdf(file="ooa-flux.pdf", width=7.25, height=4.25, colormodel="cmyk")
 l = layout(matrix(c(1,1,1,2,3,4), 3, 2))
-layout.show(l)
+#layout.show(l)
 
-par(mar=c(0,0,0,0), oma=c(5,4,2,0), bty="n", xpd=NA)
+par(mar=c(0,0,0,0), oma=c(5,4,2,0), bty="n", xpd=NA, colormodel="cmyk")
 plot(colSums(flux[38,69:70,])-colSums(flux[69:70,38,]), times[-201],
     xlim=c(-0.02, 0.02), type='n', las=1, xlab="", ylab="", yaxt="n",
     xaxt="n", bty="n")
@@ -49,12 +50,12 @@ for (i in 1:200)
     points(-d, times[i], pch=19, cex=0.2)
 }
 axis(2, las=1, tcl=-0.2, mgp=c(3,0,-0.5), at=c(0,5000,10000,15000,20000),
-    labels=c(0,125,250,375,500))
-mtext("Thousands of years ago", 2, line=1.5)
-axis(1, tcl=-0.2, mgp=c(3,0,-0.25), at=c(-.02,-.01,0,.01,.02), labels=c(.02,.01,0,.01,.02))
-mtext("Into Africa", 1, at=-0.02, line=1.5, cex=0.7, adj=0)
-mtext("Out of Africa", 1, at=0.02, line=1.5, cex=0.7, adj=1)
-mtext("Migration", 1, line=2)
+    labels=c(0,125,250,375,500), cex.axis=0.75)
+mtext("Thousands of years ago", 2, line=1.5, cex=0.75)
+axis(1, tcl=-0.2, mgp=c(3,0,-0.25), at=c(-.02,-.01,0,.01,.02), labels=c(.02,.01,0,.01,.02), cex.axis=0.75)
+mtext("Into Africa", 1, at=-0.02, line=1.5, cex=0.75, adj=0)
+mtext("Out of Africa", 1, at=0.02, line=1.5, cex=0.75, adj=1)
+mtext("Migration", 1, line=2, cex=0.75)
 
 tmp = Z[,t[1]]
 plot(0,0,type='n',xlim=st_bbox(landgrid)[c(2,4)],ylim=st_bbox(landgrid)[c(2,4)],
@@ -78,7 +79,7 @@ for (j in 1:177)
         0.85*site_coords[j,2] + 0.15*m[2], length=0.025,
         col=scales::alpha(1, 1000*sum(wt)), lwd=0.5)#lwd=sum(wt)*100)
 }
-title(sprintf("%s kya", times[t[1]]*25/1000), adj=0)
+title(sprintf("%s kya", times[t[1]]*25/1000), adj=0.1, cex.main=10/12)
 
 tmp = Z[,t[2]]
 plot(0,0,type='n',xlim=st_bbox(landgrid)[c(2,4)],ylim=st_bbox(landgrid)[c(2,4)],
@@ -102,7 +103,7 @@ for (j in 1:177)
         0.85*site_coords[j,2] + 0.15*m[2], length=0.025,
         col=scales::alpha(1, 1000*sum(wt)), lwd=0.5)#lwd=sum(wt)*100)
 }
-title(sprintf("%s kya", times[t[2]]*25/1000), adj=0)
+title(sprintf("%s kya", times[t[2]]*25/1000), adj=0.1, cex.main=10/12)
 g = st_make_grid(landgrid$geom, square=FALSE, flat_topped=TRUE,
     n=20)
 
@@ -113,11 +114,11 @@ plot(g[rev(c(131,155,179,203,227))], add=TRUE, border="light grey",
 text(
     st_coordinates(st_centroid(g[227]))[1],
     st_coordinates(st_centroid(g[227]))[2],
-    "Low ancestry", pos=4, cex=0.8)
+    "Low ancestry", pos=4, cex=0.75)
 text(
     st_coordinates(st_centroid(g[131]))[1],
     st_coordinates(st_centroid(g[131]))[2],
-    "High ancestry", pos=4, cex=0.8)
+    "High ancestry", pos=4, cex=0.75)
 
 plot(g[83], add=TRUE, border="light grey")
 arrows(
@@ -130,7 +131,7 @@ arrows(
 text(
     st_coordinates(st_centroid(g[83]))[1],
     st_coordinates(st_centroid(g[83]))[2],
-    "Net migration", pos=4, cex=0.8)
+    "Net migration", pos=4, cex=0.75)
 
 tmp = Z[,t[3]]
 plot(0,0,type='n',xlim=st_bbox(landgrid)[c(2,4)],ylim=st_bbox(landgrid)[c(2,4)],
@@ -154,6 +155,6 @@ for (j in 1:177)
         0.85*site_coords[j,2] + 0.15*m[2], length=0.025,
         col=scales::alpha(1, 1000*sum(wt)), lwd=0.5)#lwd=sum(wt)*100)
 }
-title(sprintf("%s kya", times[t[3]]*25/1000), adj=0)
+title(sprintf("%s kya", times[t[3]]*25/1000), adj=0.1, cex.main=10/12)
 
-dev.print(pdf, file="ooa-flux.pdf")
+dev.off()
