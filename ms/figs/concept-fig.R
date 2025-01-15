@@ -179,12 +179,13 @@ c(1,2,3,4,4,
   5,6,7,4,4), ncol=5, byrow=TRUE
 )
 
-
-layout.show(layout(layout.mat, heights=c(1,.1,.6)))
+pdf(file="concept-fig.pdf", width=7.25, height=4.25, colormodel="cmyk")
+#layout.show(layout(layout.mat, heights=c(1,.1,.6)))
+layout(layout.mat, heights=c(1,.1,.6))
 
 # local trees
 
-par(mar=c(1,1,1,1), oma=c(1,1,1,1), xpd=NA)
+par(mar=c(1,1,1,1), oma=c(1,1,1,1), xpd=NA, ps=9)
 tc = plot.tree(t1, time, c(1,2,4,0,6), 7)
 node.labels(c(4, 6), tc, pch=19, cex=1)
 node.text(c(4, 6), c(4,6), tc, cex=1, adj=c(-.5,-.5))
@@ -202,8 +203,8 @@ node.labels(c(4, 5), tc, pch=19, cex=1)
 node.text(c(4, 5), c(4,5), tc, cex=1, adj=c(-.5,-.5))
 node.labels(0:2, tc, pch=22, bg="white", cex=1)
 node.text(0:2, 0:2, tc, cex=1, pos=1)
-axis(4,las=1,line=1, tcl=-0.2, mgp=c(3,.5,0),cex.axis=0.8)
-text(3,1,"time", adj=c(-1,-1),cex=0.8)
+axis(4,las=1,line=1, tcl=-0.2, mgp=c(3,.5,0),cex.axis=1)
+text(3,1,"time", adj=c(-1,-1),cex=1)
 
 # cost surfaces
 
@@ -274,19 +275,19 @@ for (i in length(cl[[4]]):1)
 
 # ARG nodes
 
-points(trans3d(minq(s2[4,])[1], minq(s2[4,])[2], 0.15, pmat),pch=19,cex=0.8)
+points(trans3d(minq(s2[4,])[1], minq(s2[4,])[2], 0.15, pmat),pch=19,cex=1)
 text(
     trans3d(minq(s2[4,])[1], minq(s2[4,])[2], 0.15, pmat)$x,
     trans3d(minq(s2[4,])[1], minq(s2[4,])[2], 0.15, pmat)$y, 3, pos=4)
-points(trans3d(minq(s4)[1], minq(s4)[2], .6, pmat),pch=19,cex=0.8)
+points(trans3d(minq(s4)[1], minq(s4)[2], .6, pmat),pch=19,cex=1)
 text(
     trans3d(minq(s4)[1], minq(s4)[2], .6, pmat)$x,
     trans3d(minq(s4)[1], minq(s4)[2], .6, pmat)$y, 4, pos=4)
-points(trans3d(minq(s3[6,])[1], minq(s3[6,])[2], 0.8, pmat),pch=19,cex=0.8)
+points(trans3d(minq(s3[6,])[1], minq(s3[6,])[2], 0.8, pmat),pch=19,cex=1)
 text(
     trans3d(minq(s3[6,])[1], minq(s3[6,])[2], 0.8, pmat)$x,
     trans3d(minq(s3[6,])[1], minq(s3[6,])[2], 0.8, pmat)$y, 5, pos=4)
-points(trans3d(minq(s1[7,])[1], minq(s1[7,])[2], 1, pmat),pch=19,cex=0.8)
+points(trans3d(minq(s1[7,])[1], minq(s1[7,])[2], 1, pmat),pch=19,cex=1)
 text(
     trans3d(minq(s1[7,])[1], minq(s1[7,])[2], 1, pmat)$x,
     trans3d(minq(s1[7,])[1], minq(s1[7,])[2], 1, pmat)$y, 6, pos=4)
@@ -355,11 +356,11 @@ polygon(
     trans3d(c(0,0,3,3), c(0,3,3,0), c(0,0), pmat)$y)
 
 
-points(trans3d(x, y, 0, pmat),pch=22, bg="white",cex=0.8)
+points(trans3d(x, y, 0, pmat),pch=22, bg="white",cex=1)
 text(
     trans3d(x, y, 0, pmat)$x,
     trans3d(x, y, 0, pmat)$y,
-    0:2, pos=1, cex=0.8
+    0:2, pos=1, cex=1
 )
 
 # axes
@@ -371,7 +372,7 @@ arrows(
     trans3d(0,3,0,pmat)$x,
     trans3d(0,3,0,pmat)$y, length=0.05,lwd=1.1
 )
-text(trans3d(0,3,0,pmat)$x,trans3d(0,3,0,pmat)$y, "x", pos=4, cex=0.8)
+text(trans3d(0,3,0,pmat)$x,trans3d(0,3,0,pmat)$y, "x", pos=4, cex=1)
 # run y axis in from (3,3) to (3,0)
 arrows(
     trans3d(3,3,0,pmat)$x,
@@ -379,14 +380,14 @@ arrows(
     trans3d(3,0,0,pmat)$x,
     trans3d(3,0,0,pmat)$y, length=0.05,lwd=1.4
 )
-text(trans3d(3,0,0,pmat)$x,trans3d(3,0,0,pmat)$y, "y", pos=1, cex=0.8)
+text(trans3d(3,0,0,pmat)$x,trans3d(3,0,0,pmat)$y, "y", pos=1, cex=1)
 arrows(
     trans3d(3,3,0,pmat)$x,
     trans3d(3,3,0,pmat)$y,
     trans3d(3,3,1,pmat)$x,
     trans3d(3,3,1,pmat)$y, length=0.05, lwd=1.4
 )
-text(trans3d(3,3,1,pmat)$x,trans3d(3,3,1,pmat)$y, "time", pos=4, cex=0.8)
+text(trans3d(3,3,1,pmat)$x,trans3d(3,3,1,pmat)$y, "time", pos=4, cex=1)
 
 
 text(trans3d(3,3,-0.08,pmat)$x,
@@ -448,14 +449,14 @@ text(0.5,0.95,"Minimum cost dispersal surfaces",cex=1,adj=c(0.5,-0.8))
 plot.new()
 plot.window(xlim=c(0,1),ylim=c(0,1))
 
-text(0.5, 0.5,
+text(0.52, 0.5,
 bquote(f[4](x,y) == .(format(s3[5,1],digits=2))*x^2 + 
                        .(format(s3[5,2],digits=2))*y^2 -
                        .(format(abs(s3[5,3]),digits=2))*x - 
                        .(format(abs(s3[5,4]),digits=2))*y + .(format(s3[5,5],digits=2))),
 cex=1)
 
-text(0.5, 0.25,
+text(0.52, 0.25,
 bquote(f[5](x,y) == .(format(s3[6,1],digits=2))*x^2 + 
                        .(format(s3[6,2],digits=2))*y^2 -
                        .(format(abs(s3[6,3]),digits=2))*x - 
@@ -478,5 +479,7 @@ segments(0.31,1,0.31,3.5,lty=2,xpd=NA)
 segments(0.8,0,0.69,1,lty=2)
 segments(0.69,1,0.69,3.5,lty=2,xpd=NA)
 
-axis(1, at=c(0,0.2,0.8,1), tcl=-0.2, mgp=c(3,.25,0), cex.axis=0.8)
+axis(1, at=c(0,0.2,0.8,1), tcl=-0.2, mgp=c(3,.25,0), cex.axis=1)
 text(1,0,"Genome position",adj=c(1,-0.2),cex=1)
+
+dev.off()
